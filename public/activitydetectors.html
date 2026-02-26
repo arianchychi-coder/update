@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Activity Detectors</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f7;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 650px;
+            margin: 40px auto;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .checkbox-group label {
+            display: block;
+            font-weight: normal;
+            margin-bottom: 6px;
+        }
+
+        .status-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 6px;
+            background-color: #28a745;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+        <a href="/api/page/2/authpage" style="text-decoration: none; padding: 2rem 4.5rem;display: inline-block;color: #333;text-align: center;font-size: 3rem;">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+
+<div class="container">
+    <h2>Activity Detectors</h2>
+
+
+    <div class="form-group checkbox-group">
+        <label><input type="checkbox" id="mouseDetect" checked> Detect Mouse Activity</label>
+        <label><input type="checkbox" id="keyboardDetect" checked> Detect Keyboard Activity</label>
+        <label><input type="checkbox" id="scrollDetect" checked> Detect Scroll Activity</label>
+    </div>
+
+    <div class="form-group">
+        <label for="idleTime">Idle Timeout (seconds)</label>
+        <input type="number" id="idleTime" value="10" min="5">
+    </div>
+
+    <button onclick="toggleMonitoring()">Enable / Disable Monitoring</button>
+
+    <div class="status-box">
+        <p><strong>Status:</strong> <span id="monitorStatus">Monitoring Enabled</span></p>
+        <p><strong>Last Activity:</strong> <span id="lastActivity">Waiting...</span></p>
+    </div>
+
+</div>
+
+<script>
+    let monitoring = true;
+    let idleTimer;
+    let idleLimit = 10000;
+
+    function updateActivity() {
+        if (!monitoring) return;
+
+        document.getElementById("lastActivity").innerText = new Date().toLocaleTimeString();
+        resetIdleTimer();
+    }
+
+    function resetIdleTimer() {
+        clearTimeout(idleTimer);
+        idleLimit = document.getElementById("idleTime").value * 1000;
+
+        idleTimer = setTimeout(() => {
+            alert("User is idle!");
+        }, idleLimit);
+    }
+
+    function toggleMonitoring() {
+        monitoring = !monitoring;
+        document.getElementById("monitorStatus").innerText = monitoring ? "Monitoring Enabled" : "Monitoring Disabled";
+    }
+
+    document.addEventListener("mousemove", () => {
+        if (document.getElementById("mouseDetect").checked) updateActivity();
+    });
+
+    document.addEventListener("keydown", () => {
+        if (document.getElementById("keyboardDetect").checked) updateActivity();
+    });
+
+    document.addEventListener("scroll", () => {
+        if (document.getElementById("scrollDetect").checked) updateActivity();
+    });
+
+    resetIdleTimer();
+</script>
+
+</body>
+</html>

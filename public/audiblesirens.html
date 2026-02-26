@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+<title>Audible Sirens - Smart Home</title>
+<style>
+  body {
+    font-family: 'Tahoma', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+
+  .sirens-card {
+    background-color: #fff;
+    width: 320px;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .sirens-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+  }
+
+  .sirens-icon {
+    font-size: 50px;
+    margin-bottom: 15px;
+  }
+
+  /* رنگ کارت بر اساس وضعیت */
+  .status-active .sirens-icon { color: #e74c3c; }
+  .status-silent .sirens-icon { color: #95a5a6; }
+  .status-alarm .sirens-icon { color: #f39c12; }
+
+  .sirens-title {
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .sirens-description {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 15px;
+  }
+
+  .sirens-status {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  /* نوار وضعیت */
+  .volume-bar {
+    height: 10px;
+    background-color: #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 15px;
+  }
+
+  .volume-level {
+    height: 100%;
+    width: 70%; /* مقدار Volume */
+    background-color: #e74c3c;
+    transition: width 0.3s ease;
+  }
+
+  /* دکمه‌ها */
+  .button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .toggle-btn, .test-btn {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+  }
+
+  .toggle-btn { background-color: #e74c3c; }
+  .toggle-btn:hover { background-color: #c0392b; }
+
+  .test-btn { background-color: #3498db; }
+  .test-btn:hover { background-color: #2980b9; }
+
+</style>
+</head>
+<body>
+<a href="/api/page/2/authpage" style="position: relative;right: 36rem; bottom: 20rem; text-decoration: none;;display: inline-block;color: #333;text-align: center;font-size: 3rem;">
+            <i class="bi bi-arrow-left"></i>
+        </a>
+<div class="sirens-card status-active">
+  <div class="sirens-icon">🔔</div>
+  <div class="sirens-title">Audible Sirens</div>
+  <div class="sirens-description">
+  Manage smart home audio alarms. View siren status and volume.
+  </div>
+  <div class="sirens-status">Status: Active</div>
+  <div class="volume-bar">
+    <div class="volume-level"></div>
+  </div>
+  <div class="button-group">
+    <button class="toggle-btn">Turn Off</button>
+    <button class="test-btn">Test</button>
+  </div>
+</div>
+
+</body>
+</html>
